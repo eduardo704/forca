@@ -213,6 +213,73 @@
           }
         }
       }
+    },
+    "elec-forca": {
+      "root": "apps/elec-forca",
+      "sourceRoot": "apps/elec-forca/src",
+      "projectType": "application",
+      "prefix": "elec-forca",
+      "architect": {
+        "build": {
+          "builder": "nx-electron:build",
+          "options": {
+            "outputPath": "dist/apps/elec-forca",
+            "main": "apps/elec-forca/src/main.ts",
+            "tsConfig": "apps/elec-forca/tsconfig.app.json",
+            "assets": ["apps/elec-forca/src/assets"]
+          },
+          "configurations": {
+            "production": {
+              "optimization": true,
+              "extractLicenses": true,
+              "inspect": false,
+              "fileReplacements": [
+                {
+                  "replace": "apps/elec-forca/src/environments/environment.ts",
+                  "with": "apps/elec-forca/src/environments/environment.prod.ts"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "nx-electron:execute",
+          "options": {
+            "buildTarget": "elec-forca:build"
+          }
+        },
+        "package": {
+          "builder": "nx-electron:package",
+          "options": {
+            "name": "elec-forca",
+            "frontendProject": "forca",
+            "outputPath": "dist/packages",
+            "prepackageOnly": true
+          }
+        },
+        "make": {
+          "builder": "nx-electron:make",
+          "options": {
+            "name": "elec-forca",
+            "frontendProject": "forca",
+            "outputPath": "dist/executables"
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["apps/elec-forca/**/*.ts"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/apps/elec-forca"],
+          "options": {
+            "jestConfig": "apps/elec-forca/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
     }
   }
 }

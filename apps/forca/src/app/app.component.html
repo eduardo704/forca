@@ -1,9 +1,29 @@
-<div style="text-align: center">
-  <h1>Welcome to forca!</h1>
-  <img
-    width="450"
-    src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-logo.png"
-    alt="Nx - Smart, Extensible Build Framework"
-  />
+<div class="container">
+  <h2>Jogo da Forcaaaa</h2>
+
+  <h4>Palavras:</h4>
+
+  <div class="palavra" *ngFor="let chare of charess">
+    <ng-container *ngFor="let item of chare">
+      <span *ngIf="item.shown">{{ item.val }}</span>
+      <span *ngIf="!item.shown">_</span>
+    </ng-container>
+  </div>
 </div>
-<div>Message: {{ hello$ | async | json }}</div>
+
+<div>
+  <h4>Jogador da vez: {{players[currentPlayer].name}}</h4>
+  <label for="">Palpite:</label>
+  <input [(ngModel)]="palpite" />
+  <button (click)="palpitar()">enviar</button>
+</div>
+
+<div>
+  <h4>Jogadores</h4>
+  <div>
+    <div *ngFor="let jogador of players">
+      <span>{{ jogador.name }}</span>
+      <span>{{ jogador.points }}</span>
+    </div>
+  </div>
+</div>
