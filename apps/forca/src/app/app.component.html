@@ -1,5 +1,6 @@
 <div class="container">
   <h2>Jogo da Forcaaaa</h2>
+  <h3>Bem vindo: {{ eu.nome }}</h3>
 
   <h4>Palavras:</h4>
 
@@ -12,9 +13,15 @@
 </div>
 
 <div>
-  <h4>Jogador da vez: {{players[currentPlayer].name}}</h4>
+  {{eu.socketId}}   -
+  {{players[currentPlayer].socketId}}
+  {{players|json}}
+  <h4>Jogador da vez: {{ players[currentPlayer].nome }}</h4>
   <label for="">Palpite:</label>
-  <input [(ngModel)]="palpite" />
+  <input
+    [disabled]="players[currentPlayer].socketId !== eu.socketId"
+    [(ngModel)]="palpite"
+  />
   <button (click)="palpitar()">enviar</button>
 </div>
 
@@ -22,8 +29,8 @@
   <h4>Jogadores</h4>
   <div>
     <div *ngFor="let jogador of players">
-      <span>{{ jogador.name }}</span>
-      <span>{{ jogador.points }}</span>
+      <span>{{ jogador.nome }}</span>
+      <span>{{ jogador.score }}</span>
     </div>
   </div>
 </div>
